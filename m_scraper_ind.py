@@ -25,7 +25,7 @@ for m in client.get_messages(user, limit=limit_msg):
         from_ = user
 
     msg_lst.append(from_)
-    msg_lst.append(m.message.replace('\t', ' '))
+    msg_lst.append(m.message.replace('\t', ' ').replace("\n", "{ENTER}"))
     msg_lst.append(m.date)
     all_msg.append(msg_lst)
 
