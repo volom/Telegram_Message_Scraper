@@ -73,7 +73,7 @@ for m in post_msg:
     from_ = m.from_id.user_id
     msg_lst.append(target_group.title)    
     msg_lst.append(from_)
-    msg_lst.append(m.message.replace('\t', ' '))
+    msg_lst.append(m.message.replace('\t', ' ').replace("\n", "{ENTER}"))
     msg_lst.append(m.date)
     all_msg.append(msg_lst)
 
