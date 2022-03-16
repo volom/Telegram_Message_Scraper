@@ -1,5 +1,6 @@
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.functions.messages import GetHistoryRequest
+from telethon.tl.types import PeerUser
 from telethon.tl.types import InputPeerEmpty
 from csv_saver import *
 from auth_info import *
@@ -53,6 +54,7 @@ target_group=groups[int(g_index)]
 print('Fetching Messages...')
 
 channel_entity=client.get_entity(target_group.title)
+client.get_participants(group_title) 
 posts = client(GetHistoryRequest(
     peer=channel_entity,
     limit=limit_msg,
@@ -70,7 +72,15 @@ all_msg = []
 
 for m in post_msg:
     msg_lst = []
-    from_ = m.from_id.user_id
+    
+    try:
+        if client.get_entity(PeerUser(int(m.from_id.user_id))).username is None:
+            from_ = m.from_id.user_id
+        else:
+            from_ = client.get_entity(PeerUser(int(m.from_id.user_id))).username
+    except:
+        from_ = ""
+        
     msg_lst.append(target_group.title)    
     msg_lst.append(from_)
     msg_lst.append(m.message.replace('\t', ' ').replace("\n", "{ENTER}"))
