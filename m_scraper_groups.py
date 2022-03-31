@@ -54,7 +54,7 @@ target_group=groups[int(g_index)]
 print('Fetching Messages...')
 
 channel_entity=client.get_entity(target_group.title)
-client.get_participants(group_title) 
+client.get_participants(target_group.title) 
 posts = client(GetHistoryRequest(
     peer=channel_entity,
     limit=limit_msg,
